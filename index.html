@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>おもいでえほん — じいじ・ばあばの物語を孫へ</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&family=Klee+One:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--o:#ff8a3d;--bd:#f0e0cc;--ink:#4a3b2c}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Zen Maru Gothic',sans-serif;background:#fbf4ea;color:var(--ink)}
+header{padding:14px 26px;background:linear-gradient(90deg,#ffc996,#ffe6b8);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{font-size:26px;font-weight:700}
+.tag{font-size:14px;opacity:.8}
+.wrap{display:grid;grid-template-columns:400px 1fr;gap:20px;padding:20px;max-width:1440px;margin:auto}
+@media(max-width:980px){.wrap{grid-template-columns:1fr}.form{position:static!important;max-height:none!important}}
+.panel{background:#fff;border-radius:18px;padding:16px 20px;box-shadow:0 4px 18px rgba(120,80,30,.08)}
+.form{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
+h2{font-size:16px;margin:18px 0 6px;color:#c0622a}
+h2:first-child{margin-top:4px}
+label.f{display:block;font-size:12px;color:#8a6d4f;margin:8px 0 3px}
+input[type=text],input[type=number],select,textarea{width:100%;border:2px solid var(--bd);border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;background:#fffdf9;color:var(--ink)}
+textarea{resize:vertical;line-height:1.6}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ffb877}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:11px;color:#a88c6c;margin-top:3px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips label{border:2px solid var(--bd);border-radius:999px;padding:4px 10px;font-size:13px;cursor:pointer;user-select:none}
+.chips input,.cards input{display:none}
+.chips label:has(input:checked){background:#ffb06b;border-color:#ffb06b;color:#fff}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.cards label{border:2px solid var(--bd);border-radius:12px;text-align:center;padding:6px 2px;cursor:pointer;font-size:11px;line-height:1.3}
+.cards .e{font-size:26px;display:block}
+.cards label:has(input:checked){border-color:var(--o);background:#fff3e3}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.btn{background:var(--o);color:#fff;border:none;border-radius:999px;padding:11px 20px;font:700 15px 'Zen Maru Gothic';cursor:pointer;box-shadow:0 3px 0 #d46a22}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.sub{background:#fff;color:var(--o);border:2px solid var(--o);box-shadow:none}
+.btn.sm{padding:6px 12px;font-size:13px}
+.actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.mic{float:right;border:none;background:#fff3e3;border-radius:999px;padding:2px 10px;font-size:12px;cursor:pointer;color:#c0622a}
+.mic.rec{background:#ff5b5b;color:#fff}
+details.future{margin-top:16px;background:#fff8ef;border-radius:12px;padding:8px 12px;font-size:13px}
+details.future summary{cursor:pointer;font-weight:700;color:#c0622a}
+details.future li{margin:4px 0}
+.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.tabs button{border:none;background:#fff3e3;color:#a2582a;border-radius:999px;padding:8px 16px;font:700 15px 'Zen Maru Gothic';cursor:pointer}
+.tabs button.on{background:var(--o);color:#fff}
+.tabs .sp{flex:1}
+.view{display:none}.view.on{display:block}
+.art svg,.stage svg{width:100%;display:block}
+.art{border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.txt{font:600 21px/1.95 'Klee One',serif;padding:16px 10px 6px;outline:none;border-radius:10px;min-height:90px}
+.txt:hover{background:#fffaf3}.txt:focus{background:#fff6ea}
+.pmeta{font-size:12px;color:#a88c6c;padding:0 10px;display:flex;justify-content:space-between}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin:12px 0}
+.nav button{width:46px;height:46px;border-radius:50%;border:none;background:#fff3e3;color:var(--o);font-size:20px;cursor:pointer}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding:6px 2px}
+.thumbs div{width:118px;flex:none;cursor:pointer;border:3px solid transparent;border-radius:9px;overflow:hidden;position:relative}
+.thumbs div.on{border-color:var(--o)}
+.thumbs span{position:absolute;left:4px;top:2px;font-size:11px;color:#fff;text-shadow:0 1px 2px #000}
+.thumbs *{animation:none!important}
+.stage{position:relative;overflow:hidden;border-radius:16px;background:#111;aspect-ratio:16/9}
+.kbw{position:absolute;inset:0}
+.kb{animation:kb 14s ease-out both}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.12) translateY(-10px)}}
+.fade{animation:fade .8s ease both}@keyframes fade{from{opacity:0}}
+.sub{position:absolute;left:0;right:0;bottom:0;padding:30px 26px 18px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;font:600 20px/1.7 'Klee One',serif;text-shadow:0 1px 3px #000}
+.ctrl{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.bar{flex:1;height:8px;background:#f3e3cf;border-radius:9px;overflow:hidden;min-width:120px}
+.bar i{display:block;height:100%;background:var(--o);width:0;transition:width .4s}
+.tl{position:relative;padding-left:120px}
+.tl:before{content:'';position:absolute;left:100px;top:0;bottom:0;width:4px;background:#f3e3cf;border-radius:4px}
+.tr{position:relative;margin:10px 0;min-height:24px}
+.tr .y{position:absolute;left:-120px;width:88px;text-align:right;font-weight:700;font-size:14px}
+.tr .y small{display:block;font-weight:400;color:#a88c6c;font-size:11px}
+.tr:before{content:'';position:absolute;left:-26px;top:5px;width:14px;height:14px;border-radius:50%;background:#7aa7e0;border:3px solid #fff;box-shadow:0 0 0 2px #7aa7e0}
+.tr.me:before{background:var(--o);box-shadow:0 0 0 2px var(--o)}
+.tr.gc:before{background:#ff5b8a;box-shadow:0 0 0 2px #ff5b8a}
+.tr .c{font-size:15px;line-height:1.6}
+.tr.hist .c{color:#5a7090}
+.tr.gc .c{font-weight:700;color:#d23f6e}
+.eraH{margin:22px 0 6px -20px;padding:10px 14px;background:#fff6ea;border-left:5px solid #ffb06b;border-radius:8px;font-size:14px}
+.eraH b{display:block;font-size:15px;color:#c0622a}
+.legend{font-size:12px;color:#8a6d4f;margin-bottom:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 4px 0 10px}
+/* scene animations */
+.bob{animation:bob 3.2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-6px)}}
+.drop{animation:drop .9s linear infinite}@keyframes drop{from{transform:translateY(-140px)}to{transform:translateY(140px)}}
+.drift{animation:drift 30s ease-in-out infinite alternate}@keyframes drift{from{transform:translateX(-50px)}to{transform:translateX(60px)}}
+.grow{transform-box:fill-box;transform-origin:50% 100%;animation:grow 1.6s cubic-bezier(.2,.8,.3,1.15) both}@keyframes grow{from{transform:scaleY(0)}}
+.rise{animation:rise 7s linear infinite}@keyframes rise{0%{transform:translateY(0);opacity:0}10%{opacity:1}100%{transform:translateY(-480px);opacity:0}}
+.float{transform-box:fill-box;transform-origin:center;animation:floaty 4.5s ease-in-out infinite}@keyframes floaty{0%{transform:translateY(0);opacity:0}20%{opacity:1}100%{transform:translateY(-130px);opacity:0}}
+.tw{animation:tw 2.2s ease-in-out infinite alternate}@keyframes tw{from{opacity:.15}to{opacity:1}}
+.sunrise{animation:sunrise 6s ease-out both}@keyframes sunrise{from{transform:translateY(90px)}}
+.sunset{animation:sunset 14s ease-in both}@keyframes sunset{to{transform:translateY(50px)}}
+.train{animation:train 9s linear infinite}@keyframes train{from{transform:translateX(-220px)}to{transform:translateX(900px)}}
+.pop{transform-box:fill-box;transform-origin:10% 90%;animation:pop .9s cubic-bezier(.2,.8,.3,1.4) both}@keyframes pop{from{transform:scale(0)}}
+.tail{transform-box:fill-box;transform-origin:0 100%;animation:tailw 1.6s ease-in-out infinite alternate}@keyframes tailw{to{transform:rotate(14deg)}}
+.dash{stroke-dasharray:6 8;animation:dash 1.5s linear infinite}@keyframes dash{to{stroke-dashoffset:-28}}
+.shake{animation:shake .5s ease-in-out 3}@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.st-sepia{filter:sepia(.6) saturate(.85) contrast(.95)}
+.st-water{filter:saturate(.85) brightness(1.04)}
+#print{display:none}
+@media print{
+  body{background:#fff}
+  body>*:not(#print){display:none!important}
+  #print{display:block}
+  .pp{page-break-after:always;padding:10mm}
+  .pp *{animation:none!important}
+  .pp .txt{font-size:18px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">📖 おもいでえほん</div>
+  <div class="tag">じいじ・ばあばのことを話すだけで、孫にとどく「絵本」と「アニメ」に。時代背景つきの自伝をかんたんに。</div>
+</header>
+
+<main class="wrap">
+<section class="panel form">
+  <h2>① どんな人？</h2>
+  <div class="row2">
+    <div><label class="f">だれの物語？</label>
+      <select id="gender"><option value="m">おじいちゃん</option><option value="f">おばあちゃん</option></select></div>
+    <div><label class="f">生まれた年（西暦）</label><input id="birth" type="number" min="1900" max="2000"></div>
+  </div>
+  <div class="row2">
+    <div><label class="f">本名</label><input id="realName" type="text" placeholder="鈴木 正一"></div>
+    <div><label class="f">孫からの呼び名</label><input id="nick" type="text" placeholder="しょうちゃんじいじ"></div>
+  </div>
+  <div class="row2">
+    <div><label class="f">生まれたところ</label><input id="place" type="text" placeholder="新潟の小さな村"></div>
+    <div><label class="f">仕事</label><input id="job" type="text" placeholder="大工"></div>
+  </div>
+  <label class="f">どんな人？（いくつでも）</label>
+  <div class="chips" id="traits"></div>
+
+  <h2>② 思い出・できごと <button class="mic" data-for="episodes">🎤 話して入力</button></h2>
+  <textarea id="episodes" rows="6" placeholder="1964 白黒テレビで東京オリンピックを見た"></textarea>
+  <div class="hint">1行に1つ。「年 できごと」の形で。年に合わせて時代背景が自動で入ります。</div>
+
+  <h2>③ よく言っていたこと <button class="mic" data-for="sayings">🎤 話して入力</button></h2>
+  <textarea id="sayings" rows="3" placeholder="ごはんは、みんなで食べるとうまい"></textarea>
+  <div class="hint">口ぐせ・名言を1行に1つ。</div>
+
+  <h2>④ とどける孫</h2>
+  <div class="row2">
+    <div><label class="f">孫の名前</label><input id="gc" type="text" placeholder="ゆいちゃん"></div>
+    <div><label class="f">孫の生まれ年</label><input id="gcYear" type="number" min="1950" max="2040"></div>
+  </div>
+
+  <h2>⑤ 絵本の設定（あとから変えてもOK）</h2>
+  <label class="f">キャラクター</label>
+  <div class="cards" id="kinds"></div>
+  <label class="f">メタファー（たとえ）表現</label>
+  <div class="cards c3" id="metas"></div>
+  <label class="f">画風</label>
+  <div class="cards c3" id="styles"></div>
+  <label class="f">語り口</label>
+  <div class="cards c3" id="tones" style="grid-template-columns:repeat(2,1fr)"></div>
+
+  <div class="actions">
+    <button class="btn" id="make">✨ 絵本をつくる</button>
+    <button class="btn sub" id="sample">サンプルを入れる</button>
+    <button class="btn sub" id="clear">クリア</button>
+  </div>
+
+  <details class="future">
+    <summary>🚀 本番版で追加したい機能</summary>
+    <ul>
+      <li>おじいちゃんへの<b>インタビューをAIが聞き取り</b>、自動でエピソード化</li>
+      <li><b>写真から似顔絵キャラ</b>を生成（若いころ⇔今）</li>
+      <li>生成AIによる<b>挿絵</b>と、MulmoCast等での<b>ナレーション付き動画書き出し</b></li>
+      <li>本人の<b>声を残した読み上げ</b>、家族での<b>共同編集</b>・製本注文</li>
+      <li>孫の年齢に合わせた<b>ことばの難しさ</b>自動調整</li>
+    </ul>
+  </details>
+</section>
+
+<section class="panel">
+  <div class="tabs">
+    <button data-v="book" class="on">📖 絵本</button>
+    <button data-v="anime">🎬 アニメ</button>
+    <button data-v="tl">🕰 年表と時代背景</button>
+    <span class="sp"></span>
+    <button class="btn sub sm" id="print">🖨 PDF保存/印刷</button>
+  </div>
+
+  <div class="view on" id="v-book">
+    <div class="art" id="bArt"></div>
+    <div class="txt" id="bTxt" contenteditable="true" spellcheck="false"></div>
+    <div class="pmeta"><span id="bMeta"></span><span>✏️ 文章はクリックして直せます</span></div>
+    <div class="nav"><button id="bPrev">◀</button><b id="bNum"></b><button id="bNext">▶</button></div>
+    <div class="thumbs" id="thumbs"></div>
+  </div>
+
+  <div class="view" id="v-anime">
+    <div class="stage"><div class="kbw" id="aArt"></div><div class="sub" id="aSub"></div></div>
+    <div class="ctrl">
+      <button class="btn" id="aPlay">▶ 再生</button>
+      <button class="btn sub sm" id="aPrev">⏮</button>
+      <button class="btn sub sm" id="aNext">⏭</button>
+      <div class="bar"><i id="aBar"></i></div>
+      <label style="font-size:13px"><input type="checkbox" id="voice" checked> 読み上げ</label>
+    </div>
+  </div>
+
+  <div class="view" id="v-tl">
+    <div class="legend"><i style="background:#ff8a3d"></i>本人のできごと<i style="background:#7aa7e0"></i>日本・世界のできごと<i style="background:#ff5b8a"></i>孫の誕生</div>
+    <div class="tl" id="tl"></div>
+  </div>
+</section>
+</main>
+<div id="print"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const NOW=new Date().getFullYear();
+
+/* ---------- 時代データ ---------- */
+const ERAS=[
+ {from:1900,to:1925,name:'明治・大正',scene:'calm',lit:'町に電車やラジオが少しずつ広がっていった時代',meta:'新しい風が、そっとふきはじめた季節'},
+ {from:1926,to:1936,name:'昭和のはじめ',scene:'calm',lit:'まだ多くの人が田んぼや畑ではたらいていた時代',meta:'みんなが田んぼのあぜ道を歩いていた季節'},
+ {from:1937,to:1945,name:'戦争の時代',scene:'storm',lit:'日本が戦争をしていて、食べものが少なく、空襲もあった時代',meta:'空がずっとくもったままの、長い長いあらしの季節'},
+ {from:1946,to:1955,name:'戦後の復興',scene:'recovery',lit:'戦争が終わり、焼けあとから町をつくりなおしていった時代',meta:'焼けた土から、小さな芽がいっせいに顔を出した季節'},
+ {from:1956,to:1973,name:'高度経済成長',scene:'growth',lit:'高度経済成長期とよばれ、ビルや道路がどんどんでき、テレビや冷蔵庫が家にやってきた時代',meta:'町がぐんぐん背のびをした、にぎやかな季節'},
+ {from:1974,to:1985,name:'安定成長',scene:'calm',lit:'オイルショックをのりこえ、くらしが落ち着いてきた時代',meta:'走りつづけた町が、ひと息ついた季節'},
+ {from:1986,to:1991,name:'バブル景気',scene:'bubble',lit:'バブル景気とよばれ、土地や株の値段が大きく上がり、町がきらびやかだった時代',meta:'きらきらのシャボン玉が、空いっぱいに浮かんだ季節'},
+ {from:1992,to:2007,name:'平成',scene:'calm',lit:'平成になり、景気が冷えこみ大きな地震もあったけれど、ケータイやインターネットが広がった時代',meta:'冷たい風の中で、みんなが新しい道をさがした季節'},
+ {from:2008,to:2018,name:'スマホの時代',scene:'digital',lit:'スマートフォンが広がり、東日本大震災ではたくさんの人が助け合った時代',meta:'小さな画面の光が、遠くの人どうしをつないだ季節'},
+ {from:2019,to:2200,name:'令和',scene:'digital',lit:'令和になり、感染症の流行をのりこえ、AIがくらしに入ってきた時代',meta:'見えない雲をくぐりぬけ、新しい朝をむかえた季節'}];
+const EVENTS=[[1923,'関東大震災が起こりました'],[1941,'太平洋戦争がはじまりました'],[1945,'戦争が終わりました'],[1953,'テレビ放送がはじまりました'],[1958,'東京タワーができました'],[1964,'東京オリンピックが開かれ、新幹線が走りはじめました'],[1969,'人類がはじめて月に立ちました'],[1970,'大阪で万国博覧会が開かれました'],[1973,'オイルショックが起こりました'],[1983,'ファミコンが発売されました'],[1989,'元号が平成になりました'],[1995,'阪神・淡路大震災が起こりました'],[1998,'長野オリンピックが開かれました'],[2007,'iPhoneが発表されました'],[2011,'東日本大震災が起こりました'],[2019,'元号が令和になりました'],[2020,'新型コロナウイルスが世界中で流行しました'],[2021,'東京オリンピックが開かれました']];
+const eraFor=y=>ERAS.find(e=>y>=e.from&&y<=e.to)||ERAS[0];
+function eventNear(y,r=2){let b=null;for(const e of EVENTS){const d=Math.abs(e[0]-y);if(d<=r&&(!b||d<Math.abs(b[0]-y)))b=e}return b}
+
+/* ---------- 選択肢 ---------- */
+const TRAITS=['やさしい','がんこな','おもしろい','はたらきものの','ものしりな','料理じょうずな','手先がきような','歌がすきな','しんぼう強い'];
+const KINDS={human:{l:'ひと',e:'🧓',meta:''},bear:{l:'くま',e:'🐻',meta:'大きくてあたたかい くま'},owl:{l:'ふくろう',e:'🦉',meta:'ものしりで しずかな ふくろう'},cat:{l:'ねこ',e:'🐱',meta:'きまぐれで やさしい ねこ'},tree:{l:'大きな木',e:'🌳',meta:'どっしりと根をはる 大きな木'}};
+const METAS={0:['📜','そのまま','史実で語る'],1:['💡','たとえ＋解説','比喩と本当の意味'],2:['🌙','たとえだけ','おとぎ話風']};
+const STYLES={water:['🎨','やわらか水彩'],crayon:['🖍','クレヨン'],sepia:['📷','セピア写真風']};
+const TONES={ehon:['📘','えほん'],mukashi:['🏯','むかしばなし']};
+$('#traits').innerHTML=TRAITS.map(t=>`<label><input type="checkbox" name="trait" value="${t}">${t.replace(/(な|の)$/,'')}</label>`).join('');
+const cards=(id,name,obj,fn,def)=>$(id).innerHTML=Object.entries(obj).map(([k,v])=>`<label><input type="radio" name="${name}" value="${k}" ${k==def?'checked':''}><span class="e">${fn(v)[0]}</span>${fn(v)[1]}</label>`).join('');
+cards('#kinds','kind',KINDS,v=>[v.e,v.l],'human');
+cards('#metas','meta',METAS,v=>[v[0],v[1]],'1');
+cards('#styles','style',STYLES,v=>v,'water');
+cards('#tones','tone',TONES,v=>v,'ehon');
+
+/* ---------- 入力 ---------- */
+function readForm(){
+  const v=id=>$('#'+id).value.trim();
+  return {gender:v('gender'),realName:v('realName'),nick:v('nick'),birth:+v('birth')||1940,place:v('place'),job:v('job'),
+    traits:$$('input[name=trait]:checked').map(x=>x.value),
+    episodes:v('episodes').split('\n').map(l=>{const m=l.trim().match(/^(\d{4})\s*(?:年)?[\s:：、,]*(.+)$/);return m?{y:+m[1],t:m[2].trim()}:null}).filter(Boolean),
+    sayings:v('sayings').split('\n').map(s=>s.trim().replace(/^[「『"]|[」』"]$/g,'')).filter(Boolean),
+    gc:v('gc'),gcYear:+v('gcYear')||0,
+    kind:$('input[name=kind]:checked').value,meta:+$('input[name=meta]:checked').value,
+    style:$('input[name=style]:checked').value,tone:$('input[name=tone]:checked').value};
+}
+function eraPhrase(era,m){return m===0?era.lit:m===2?era.meta:`${era.meta}。ほんとうのことばでいうと、${era.lit}`}
+function sceneFromText(t){
+  const R=[[/戦争が終わ|終戦/,'recovery'],[/戦争|空襲|疎開|焼け/,'storm'],[/地震|震災|台風|災害|水害/,'quake'],[/結婚|生まれ|家族|妻|夫|嫁|子ども/,'family'],[/仕事|働|見習|会社|職人|店|開業|建て/,'work'],[/万博|オリンピック|テレビ|東京タワー|新幹線/,'growth'],[/星|夜|月/,'night'],[/バブル/,'bubble'],[/スマホ|パソコン|インターネット/,'digital']];
+  for(const [r,s] of R) if(r.test(t)) return s; return null;
+}
+const MET=['こころのポケットにしまっておける、小さなおまもりです。','まよったときにひらく、地図のようなことばです。','さむい日にともす、小さなランプのようなことばです。','何年たってもかれない、たねのようなことばです。'];
+
+/* ---------- 物語の組み立て ---------- */
+function buildPages(d){
+  const P=[],name=d.nick||d.realName||(d.gender==='m'?'おじいちゃん':'おばあちゃん'),b=d.birth,m=d.meta,K=KINDS[d.kind],gc=d.gc||'あなた';
+  P.push({scene:'cover',title:`${name}のものがたり`,sub:d.gc?`${d.gc}へ`:'',age:72,year:null,
+    text:`${d.gc?d.gc+'へ。':''}これは、${name}のものがたりです。${gc}が生まれるずっと前から、つづいてきたお話。`});
+  const e0=eraFor(b);
+  let t=(d.tone==='mukashi'?'むかしむかし、':'')+`${b}年、${d.place||'ある町'}で、ひとりの${d.gender==='m'?'男の子':'女の子'}が生まれました。それが${name}です。`;
+  if(d.kind!=='human') t+=m===0?`この絵本では、${name}を${K.l}のすがたでえがきます。`:`${name}は、${K.meta}のような人でした。`;
+  t+=`そのころの日本は、${eraPhrase(e0,m)}でした。`;
+  const ev0=eventNear(b,1); if(ev0) t+=`${ev0[0]===b?'この年':ev0[0]+'年'}には、${ev0[1]}。`;
+  P.push({scene:'birth',text:t,year:b,age:0,era:e0});
+  const eps=d.episodes, near=y=>eps.some(e=>Math.abs(e.y-y)<=3), items=[...eps];
+  if(b+10<=NOW&&!near(b+10)) items.push({y:b+10,auto:'child'});
+  if(b+21<=NOW&&!near(b+21)) items.push({y:b+21,auto:'adult'});
+  items.sort((x,y)=>x.y-y.y);
+  let prev=e0; const used=new Set(ev0?[ev0[0]]:[]);
+  for(const it of items){
+    const era=eraFor(it.y),age=it.y-b; let s=era.scene,t='';
+    if(it.auto==='child'){t=`${it.y}年、${name}は${age}さい。`+(era.scene==='storm'?`食べものが少なく、おなかをすかせる日もありました。それでも${name}は、家族と肩をよせあってくらしました。`:`${name}は、${d.place||'ふるさと'}の野山をかけまわってあそびました。`)}
+    else if(it.auto==='adult'){t=`${it.y}年、${name}は${age}さいになりました。`+(d.job?`${d.job}としてはたらきはじめます。`:'いよいよ、おとなのなかまいりです。');if(d.job)s='work'}
+    else{t=`${it.y}年、${name}が${age}さいのとき。${it.t.replace(/[。.]?$/,'。')}`;s=sceneFromText(it.t)||era.scene}
+    if(era!==prev) t+=`そのころの日本は、${eraPhrase(era,m)}でした。`;
+    const ev=eventNear(it.y,2);
+    if(ev&&!used.has(ev[0])&&!(it.t||'').includes(ev[1].slice(0,4))){t+=`${ev[0]===it.y?'この年':ev[0]+'年'}には、${ev[1]}。`;used.add(ev[0])}
+    prev=era; P.push({scene:s,text:t,year:it.y,age,era});
+  }
+  if(d.traits.length) P.push({scene:'calm',age:70,year:null,text:`${name}は、${d.traits.join('、')}人でした。`+(d.kind!=='human'&&m>0?`まるで${K.meta}のように、まわりの人をつつんでくれました。`:'')});
+  d.sayings.forEach((s,i)=>P.push({scene:'words',quote:s,age:75,year:null,text:`${name}は、よくこう言っていました。「${s}」`+(m>0?`それは、${MET[i%4]}`:'')}));
+  let te=d.gcYear?`${d.gcYear}年、${gc}が生まれました。${name}が生まれてから${d.gcYear-b}年後のことです。`:'';
+  te+=`${gc}が生まれる前にも、${name}にはこんなにたくさんのものがたりがありました。このお話のつづきは、${gc}がいっしょにかいていくのです。`+(d.tone==='mukashi'?'……というおはなし。':'');
+  P.push({scene:'ending',text:te,age:80,year:d.gcYear||null});
+  return P;
+}
+
+/* ---------- キャラクター描画 ---------- */
+function charSVG(kind,gender,age,x,y,s){
+  const child=age<15,old=age>=55,hair=old?'#e2e2e2':'#3b2b20';
+  const body=child?'#f2b134':gender==='m'?'#5b7db1':gender==='f'?'#d0697f':'#6cc3a0';
+  const eyes=(cy,dx=12)=>`<circle cx="${-dx}" cy="${cy}" r="3.6" fill="#2b2b2b"/><circle cx="${dx}" cy="${cy}" r="3.6" fill="#2b2b2b"/>`;
+  const gl=(cy,dx=12)=>old?`<g fill="none" stroke="#444" stroke-width="2"><circle cx="${-dx}" cy="${cy}" r="9"/><circle cx="${dx}" cy="${cy}" r="9"/><path d="M${-dx+9} ${cy}H${dx-9}"/></g>`:'';
+  const smile=cy=>`<path d="M-9 ${cy} Q0 ${cy+8} 9 ${cy}" stroke="#7a3b2e" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+  const ch=(cy,dx=22)=>`<circle cx="${-dx}" cy="${cy}" r="6" fill="#ff8fa3" opacity=".45"/><circle cx="${dx}" cy="${cy}" r="6" fill="#ff8fa3" opacity=".45"/>`;
+  const rib=(cx,cy)=>gender==='f'?`<g transform="translate(${cx},${cy})"><ellipse cx="-9" rx="8" ry="5" fill="#ff8fa3"/><ellipse cx="9" rx="8" ry="5" fill="#ff8fa3"/><circle r="5" fill="#ff5b80"/></g>`:'';
+  let g='';
+  switch(kind){
+  case 'bear':g=`<ellipse cy="-50" rx="45" ry="52" fill="#9a6a3f"/><ellipse cy="-42" rx="28" ry="32" fill="#c9965f"/><circle cx="-30" cy="-158" r="14" fill="#9a6a3f"/><circle cx="30" cy="-158" r="14" fill="#9a6a3f"/><circle cx="-30" cy="-158" r="7" fill="#c9965f"/><circle cx="30" cy="-158" r="7" fill="#c9965f"/><circle cy="-125" r="40" fill="#9a6a3f"/><ellipse cy="-110" rx="17" ry="13" fill="#e8c9a0"/><ellipse cy="-116" rx="6" ry="4.5" fill="#3b2418"/>${eyes(-132,15)}${gl(-132,15)}${smile(-106)}${rib(28,-150)}`;break;
+  case 'owl':g=`<ellipse cx="-44" cy="-70" rx="14" ry="40" fill="#7d5a3a"/><ellipse cx="44" cy="-70" rx="14" ry="40" fill="#7d5a3a"/><ellipse cy="-75" rx="48" ry="74" fill="#a0764e"/><ellipse cy="-55" rx="30" ry="44" fill="#ecd9b8"/><path d="M-36 -130 L-30 -160 L-14 -138Z M36 -130 L30 -160 L14 -138Z" fill="#7d5a3a"/><circle cx="-18" cy="-112" r="17" fill="#fff"/><circle cx="18" cy="-112" r="17" fill="#fff"/><circle cx="-18" cy="-112" r="7" fill="#2b2b2b"/><circle cx="18" cy="-112" r="7" fill="#2b2b2b"/>${old?'<g fill="none" stroke="#444" stroke-width="2.5"><circle cx="-18" cy="-112" r="19"/><circle cx="18" cy="-112" r="19"/></g>':''}<path d="M-7 -96 L7 -96 L0 -84Z" fill="#f2a33a"/>${rib(24,-142)}`;break;
+  case 'cat':g=`<path class="tail" d="M34 -28 Q82 -58 60 -110" stroke="#e59245" stroke-width="12" fill="none" stroke-linecap="round"/><ellipse cy="-45" rx="38" ry="48" fill="#f0a35c"/><ellipse cy="-38" rx="22" ry="30" fill="#fbe0c3"/><path d="M-32 -138 L-28 -172 L-6 -150Z M32 -138 L28 -172 L6 -150Z" fill="#f0a35c"/><circle cy="-120" r="36" fill="#f0a35c"/><path d="M-3 -112 h6 l-3 4z" fill="#d66"/>${eyes(-124,13)}${gl(-124,13)}<path d="M-8 -104 Q-4 -99 0 -104 Q4 -99 8 -104" stroke="#7a3b2e" stroke-width="2" fill="none"/><path d="M-14 -110 H-42 M-14 -106 L-40 -98 M14 -110 H42 M14 -106 L40 -98" stroke="#7a5030" stroke-width="1.5"/>${rib(26,-150)}`;break;
+  case 'tree':{const lf=old?'#79ad62':'#9ad17a';g=`<path d="M-20 0 L-14 -100 H14 L20 0Z" fill="#8b5a2b"/><circle cy="-150" r="58" fill="${lf}"/><circle cx="-48" cy="-118" r="40" fill="${lf}"/><circle cx="48" cy="-118" r="40" fill="${lf}"/><circle cy="-118" r="44" fill="${lf}"/>${gender==='f'?'<g fill="#ffa3bb"><circle cx="-30" cy="-160" r="7"/><circle cx="25" cy="-140" r="7"/><circle cx="-10" cy="-118" r="7"/><circle cx="45" cy="-108" r="6"/></g>':''}${old?'<g fill="#e05d5d"><circle cx="20" cy="-172" r="7"/><circle cx="-42" cy="-100" r="7"/><circle cx="52" cy="-130" r="6"/></g>':''}<g transform="translate(0,52)">${eyes(-100,9)}${smile(-88)}</g>`;break;}
+  default:{
+    const hp=gender==='f'?`<circle cy="-166" r="15" fill="${hair}"/><path d="M-37 -118 A37 37 0 0 1 37 -118 Q30 -150 0 -152 Q-30 -150 -37 -118Z" fill="${hair}"/>`
+      :old?`<ellipse cx="-34" cy="-128" rx="7" ry="13" fill="${hair}"/><ellipse cx="34" cy="-128" rx="7" ry="13" fill="${hair}"/>`
+      :`<path d="M-37 -120 A37 37 0 0 1 37 -120 Q20 -142 0 -142 Q-20 -142 -37 -120Z" fill="${hair}"/>`;
+    g=`<rect x="-24" y="-14" width="16" height="14" rx="4" fill="#555"/><rect x="8" y="-14" width="16" height="14" rx="4" fill="#555"/><rect x="-34" y="-92" width="68" height="82" rx="26" fill="${body}"/><circle cy="-125" r="36" fill="#f6d7b8"/>${hp}${eyes(-127)}${gl(-127)}${ch(-114)}${smile(-110)}`;}
+  }
+  return `<g transform="translate(${x},${y}) scale(${s*(child?.62:1)})"><g class="bob">${g}</g></g>`;
+}
+
+/* ---------- 背景・シーン ---------- */
+let UID=0;
+const rng=seed=>()=>(seed=(seed*16807)%2147483647)/2147483647;
+const sky=(a,b)=>{const id='sk'+(++UID);return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="800" height="450" fill="url(#${id})"/>`};
+const ground=(c,y=360)=>`<path d="M0 ${y} Q200 ${y-30} 400 ${y-5} T800 ${y-12} V450 H0Z" fill="${c}"/>`;
+const hills=(a='#a6d98a',b='#8fcf74')=>`<ellipse cx="180" cy="440" rx="380" ry="120" fill="${a}"/><ellipse cx="650" cy="450" rx="380" ry="110" fill="${b}"/>`;
+const cloud=(x,y,s,c='#fff',dur=30)=>`<g class="drift" style="animation-duration:${dur}s"><g transform="translate(${x},${y}) scale(${s})" fill="${c}"><ellipse rx="50" ry="22"/><ellipse cx="-30" cy="6" rx="34" ry="18"/><ellipse cx="34" cy="6" rx="38" ry="18"/><ellipse cx="6" cy="-14" rx="30" ry="20"/></g></g>`;
+const heart=(x,y,s,c,d)=>`<g transform="translate(${x},${y}) scale(${s})"><path class="float" style="animation-delay:${d}s" d="M0 6 C-14 -8 -26 6 0 26 C26 6 14 -8 0 6Z" fill="${c}"/></g>`;
+const stars=(r,n)=>{let s='';for(let i=0;i<n;i++)s+=`<circle class="tw" style="animation-delay:${(r()*3).toFixed(2)}s" cx="${(r()*800)|0}" cy="${(r()*240)|0}" r="${(1+r()*2.2).toFixed(1)}" fill="#fff"/>`;return s};
+const fo=(x,y,w,h,html,st)=>`<foreignObject x="${x}" y="${y}" width="${w}" height="${h}"><div xmlns="http://www.w3.org/1999/xhtml" style="height:${h}px;${st}">${html}</div></foreignObject>`;
+const house=(x,y,c='#f4e1c1',roof='#c0563a')=>`<g transform="translate(${x},${y})"><rect x="-40" y="-60" width="80" height="60" fill="${c}"/><path d="M-50 -58 L0 -100 L50 -58Z" fill="${roof}"/><rect x="-10" y="-34" width="20" height="34" fill="#8b5a2b"/></g>`;
+
+function sceneSVG(p,d,idx){
+  const r=rng(idx*97+13),K=d.kind,G=d.gender,age=p.age??70;
+  const me=(x=400,y=388,s=1.1)=>charSVG(K,G,age,x,y,s);
+  let s='',top='';
+  switch(p.scene){
+  case 'storm':
+    s=sky('#3d4656','#7a8494')+cloud(200,80,1.6,'#5a6272',24)+cloud(570,60,1.9,'#4b5262',30)+ground('#3f5a46');
+    for(let i=0;i<70;i++){const x=r()*820,y=r()*450;s+=`<line class="drop" style="animation-delay:${(r()*1.2).toFixed(2)}s" x1="${x}" y1="${y}" x2="${x-6}" y2="${y+18}" stroke="#cfd8e6" stroke-width="2" opacity=".7"/>`}
+    s+=house(640,370,'#8d8d7a','#555')+me(360);break;
+  case 'recovery':
+    s=sky('#ffc98b','#cfe8ff')+`<circle class="sunrise" cx="630" cy="300" r="62" fill="#ffb347"/>`+ground('#a5835c');
+    for(let i=0;i<16;i++){const x=40+r()*720,y=380+r()*55;s+=`<g transform="translate(${x|0},${y|0})"><g class="grow" style="animation-delay:${(r()*2).toFixed(2)}s"><path d="M0 0 V-20 M0 -12 Q-10 -22 -15 -14 M0 -17 Q10 -28 15 -19" stroke="#4caf50" stroke-width="3.5" fill="none" stroke-linecap="round"/></g></g>`}
+    s+=me(360,385);break;
+  case 'growth':{
+    s=sky('#86cdf9','#e6f6ff')+cloud(260,70,1,'#fff',26);
+    let x=470;for(let i=0;x<790;i++){const w=36+r()*30,h=90+r()*170;s+=`<g class="grow" style="animation-delay:${(i*.18).toFixed(2)}s"><rect x="${x|0}" y="${(360-h)|0}" width="${w|0}" height="${h|0}" fill="${['#b9c6d6','#a9b9cc','#c8d3e0'][i%3]}"/>`;for(let wy=360-h+12;wy<345;wy+=22)s+=`<rect x="${(x+8)|0}" y="${wy|0}" width="${(w-16)|0}" height="9" fill="#eaf4ff"/>`;s+='</g>';x+=w+6}
+    s+=`<g class="grow"><path d="M140 120 L104 360 M140 120 L176 360" stroke="#e5533d" stroke-width="7"/><path d="M114 300 H166 M123 240 H157 M131 180 H149" stroke="#e5533d" stroke-width="6"/><path d="M118 270 H162 M127 210 H153" stroke="#fff" stroke-width="5"/></g>`;
+    s+=ground('#8fc77a')+me(330,372)+`<g class="train"><rect x="0" y="408" width="170" height="30" rx="15" fill="#fff" stroke="#3a6ea5" stroke-width="3"/><rect x="2" y="424" width="166" height="5" fill="#3a6ea5"/><g fill="#9cc8f0"><rect x="30" y="414" width="18" height="8"/><rect x="62" y="414" width="18" height="8"/><rect x="94" y="414" width="18" height="8"/><rect x="126" y="414" width="18" height="8"/></g></g>`;break;}
+  case 'bubble':
+    s=sky('#f9c6e6','#c9b8ff');
+    for(let i=0;i<6;i++){const x=20+i*130,h=120+r()*120;s+=`<rect x="${x}" y="${360-h|0}" width="70" height="${h|0}" fill="#9a84d6" opacity=".55"/>`}
+    s+=ground('#b493dd');
+    for(let i=0;i<26;i++)s+=`<circle class="rise" style="animation-delay:${(r()*7).toFixed(2)}s" cx="${(r()*800)|0}" cy="${(380+r()*90)|0}" r="${(8+r()*24)|0}" fill="#fff" fill-opacity=".3" stroke="#fff" stroke-width="2"/>`;
+    s+=me();break;
+  case 'night':
+    s=sky('#1b2a4a','#3d5a8a')+stars(r,60)+`<circle cx="650" cy="90" r="36" fill="#fff3c4"/><circle cx="664" cy="80" r="32" fill="#22345a"/>`+hills('#2f4a3a','#28402f')+me();break;
+  case 'digital':
+    s=sky('#1b2a4a','#41608f')+stars(r,40);
+    {const pts=[];let x=10;for(let i=0;x<800;i++){const w=50+r()*40,h=90+r()*150;s+=`<rect x="${x|0}" y="${360-h|0}" width="${w|0}" height="${h|0}" fill="#25365a"/>`;for(let wy=360-h+12;wy<345;wy+=20)for(let wx=x+8;wx<x+w-12;wx+=16)if(r()>.45)s+=`<rect class="${r()>.8?'tw':''}" x="${wx|0}" y="${wy|0}" width="8" height="8" fill="#ffe28a"/>`;pts.push([x+w/2,360-h]);x+=w+8}
+     for(let i=0;i<pts.length-1;i+=1)s+=`<path class="dash" d="M${pts[i][0]|0} ${pts[i][1]|0} Q${(pts[i][0]+pts[i+1][0])/2|0} ${Math.min(pts[i][1],pts[i+1][1])-50|0} ${pts[i+1][0]|0} ${pts[i+1][1]|0}" stroke="#7fe0ff" stroke-width="2" fill="none" opacity=".8"/>`}
+    s+=ground('#1f3a2e')+me();break;
+  case 'quake':
+    s=sky('#f7b27a','#8fa3c8')+ground('#7f9a6a')+`<g class="shake">${house(120,355)}${house(690,350,'#e8d6b8','#7a5a9a')}</g>`+charSVG(K,G==='m'?'f':'m',40,190,395,.8)+charSVG(K,'k',35,610,395,.8)+me(400,392);
+    for(let i=0;i<6;i++)s+=heart(150+i*100,260,1.3,'#ff6b8a',i*.7);break;
+  case 'family':
+    s=sky('#ffe2c8','#fff6e9')+hills('#f3cfa6','#efc095');
+    for(let i=0;i<9;i++)s+=heart(80+r()*640,200+r()*120,1+r(),'#ff8fa3',(r()*4).toFixed(1));
+    s+=me(330)+charSVG(K,G==='m'?'f':'m',age,480,388,1.05);break;
+  case 'work':
+    s=sky('#bfe6ff','#f4fbff')+cloud(180,80,1)+ground('#a6d98a')+`<g class="grow" stroke="#a06a3a" stroke-width="10" fill="none" stroke-linecap="round"><path d="M490 360 V220 M660 360 V220 M478 226 L575 160 L672 226 M490 290 H660 M575 160 V360"/></g>`+me(290);break;
+  case 'birth':
+    s=sky('#ffd9e4','#cfe8ff')+`<circle class="sunrise" cx="620" cy="140" r="50" fill="#ffd36b"/>`+cloud(200,90,.9)+hills('#bfe6a8','#a9dc8f');
+    for(let i=0;i<14;i++)s+=`<path class="tw" style="animation-delay:${(r()*2).toFixed(2)}s" transform="translate(${(r()*800)|0},${(r()*250)|0})" d="M0 -8 L2 -2 L8 0 L2 2 L0 8 L-2 2 L-8 0 L-2 -2Z" fill="#fff"/>`;
+    s+=me(400,392,1.3);break;
+  case 'words':
+    s=sky('#fff6d8','#ffe6b0')+hills('#f3dca0','#ecd08a')+me(165,405,1.15)+`<g class="pop"><path d="M330 240 L262 300 L370 262Z" fill="#fff" stroke="#e8b04a" stroke-width="5" stroke-linejoin="round"/><rect x="300" y="55" width="470" height="240" rx="40" fill="#fff" stroke="#e8b04a" stroke-width="5"/><path d="M332 238 L364 262" stroke="#fff" stroke-width="9"/></g>`;
+    for(let i=0;i<4;i++)s+=heart(320+i*130,330,1,'#ffb36b',i);
+    top=fo(320,70,430,210,`「${esc(p.quote)}」`,'display:flex;align-items:center;justify-content:center;text-align:center;font:600 30px/1.5 "Klee One",serif;color:#5a3a1a;padding:0 10px');break;
+  case 'ending':
+    s=sky('#ffb37f','#a9c8ff')+`<circle class="sunset" cx="400" cy="300" r="85" fill="#ffdd8a"/>`+hills('#9fc98a','#8bbf75')+me(330,392,1.1)+charSVG(K,'k',5,460,392,1.1);
+    for(let i=0;i<8;i++)s+=heart(250+r()*300,250+r()*60,1+r()*.6,'#ff6b8a',(r()*4).toFixed(1));break;
+  case 'cover':
+    s=sky('#fff1d6','#ffd9c2')+cloud(130,150,.8)+cloud(660,170,.7)+hills('#bfe6a8','#a9dc8f')+me(400,408,1.15);
+    top=fo(40,22,720,140,`<div style="font:700 48px 'Zen Maru Gothic';color:#8a4a1c;text-shadow:0 3px 0 #fff">${esc(p.title)}</div><div style="font:600 22px 'Klee One';color:#b0602a;margin-top:4px">${esc(p.sub)}</div>`,'text-align:center');break;
+  default:
+    s=sky('#bfe6ff','#f4fbff')+`<circle class="tw" cx="680" cy="90" r="40" fill="#ffd45c"/>`+cloud(220,90,1.1)+cloud(520,60,.8,'#fff',38)+hills()+me();
+  }
+  const id='fx'+(++UID);
+  const f=d.style==='crayon'?`<filter id="${id}"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>`
+        :d.style==='water'?`<filter id="${id}"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>`:'';
+  return `<svg class="st-${d.style}" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">${f?`<defs>${f}</defs>`:''}<g ${f?`filter="url(#${id})"`:''}>${s}</g>${top}</svg>`;
+}
+
+/* ---------- 画面 ---------- */
+let D=null,PAGES=[],cur=0,edits={};
+function render(){
+  D=readForm();PAGES=buildPages(D);
+  PAGES.forEach((p,i)=>{if(edits[i]!=null)p.text=edits[i]});
+  cur=Math.min(cur,PAGES.length-1);
+  showBook();renderThumbs();renderTL();
+  if($('#v-anime').classList.contains('on'))aShow(aIdx,false);
+  localStorage.setItem('omoide-ehon',JSON.stringify(formState()));
+}
+function metaLabel(p,i){return `p.${i+1} / ${PAGES.length}`+(p.year?`　${p.year}年`+(p.age>0&&p.scene!=='ending'?`（${p.age}さい）`:''):'')+(p.era?`　${p.era.name}`:'')}
+function showBook(){
+  const p=PAGES[cur];$('#bArt').innerHTML=sceneSVG(p,D,cur);$('#bTxt').textContent=p.text;
+  $('#bMeta').textContent=metaLabel(p,cur);$('#bNum').textContent=`${cur+1} / ${PAGES.length}`;
+  $$('#thumbs>div').forEach((t,i)=>t.classList.toggle('on',i===cur));
+}
+function renderThumbs(){
+  $('#thumbs').innerHTML=PAGES.map((p,i)=>`<div data-i="${i}" class="${i===cur?'on':''}">${sceneSVG(p,D,i)}<span>${i+1}</span></div>`).join('');
+}
+$('#thumbs').onclick=e=>{const t=e.target.closest('[data-i]');if(t){cur=+t.dataset.i;showBook()}};
+$('#bPrev').onclick=()=>{if(cur>0){cur--;showBook()}};
+$('#bNext').onclick=()=>{if(cur<PAGES.length-1){cur++;showBook()}};
+$('#bTxt').oninput=e=>{edits[cur]=e.target.innerText;PAGES[cur].text=edits[cur]};
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,[contenteditable]'))return;if(e.key==='ArrowRight')$('#bNext').click();if(e.key==='ArrowLeft')$('#bPrev').click()});
+
+/* 年表 */
+function renderTL(){
+  const b=D.birth,end=Math.max(NOW,D.gcYear||0),rows=[];
+  rows.push({y:b,t:`${D.nick||D.realName||'本人'}が${D.place||''}で生まれる`,c:'me'});
+  D.episodes.forEach(e=>rows.push({y:e.y,t:e.t,c:'me'}));
+  EVENTS.filter(e=>e[0]>=b&&e[0]<=end).forEach(e=>rows.push({y:e[0],t:e[1].replace(/ました$/,'た').replace(/りました$/,'った'),c:'hist'}));
+  if(D.gcYear)rows.push({y:D.gcYear,t:`🍼 ${D.gc||'孫'}が生まれる（ここから先は、いっしょの時間）`,c:'gc'});
+  rows.sort((a,c)=>a.y-c.y||(a.c==='me'?-1:1));
+  let pe=null,h='';
+  for(const r of rows){const e=eraFor(r.y);if(e!==pe){h+=`<div class="eraH"><b>${e.name}（${Math.max(e.from,b)}〜${e.to>NOW?'':e.to}）</b>💡 ${e.meta}<br><span style="color:#8a6d4f">📜 ${e.lit}</span></div>`;pe=e}
+    h+=`<div class="tr ${r.c}"><div class="y">${r.y}<small>${r.y-b}さい</small></div><div class="c">${esc(r.t)}</div></div>`}
+  $('#tl').innerHTML=h;
+}
+
+/* アニメ */
+let aIdx=0,playing=false,token=0,typeT=null;
+function aShow(i,speakIt=true){
+  aIdx=Math.max(0,Math.min(i,PAGES.length-1));const p=PAGES[aIdx];
+  const w=$('#aArt');w.innerHTML=`<div class="kb fade">${sceneSVG(p,D,aIdx)}</div>`;
+  $('#aBar').style.width=((aIdx+1)/PAGES.length*100)+'%';
+  clearInterval(typeT);const sub=$('#aSub');sub.textContent='';let k=0;
+  typeT=setInterval(()=>{sub.textContent=p.text.slice(0,++k);if(k>=p.text.length)clearInterval(typeT)},playing?70:8);
+  if(playing&&speakIt)narrate(p.text);
+}
+function narrate(text){
+  const my=++token;
+  const done=()=>{if(my!==token||!playing)return;if(aIdx<PAGES.length-1)setTimeout(()=>{if(my===token&&playing)aShow(aIdx+1)},900);else stopA()};
+  if($('#voice').checked&&'speechSynthesis'in window){
+    speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ja-JP';u.rate=.95;u.pitch=1.05;
+    const v=speechSynthesis.getVoices().find(v=>v.lang&&v.lang.startsWith('ja'));if(v)u.voice=v;
+    u.onend=done;u.onerror=done;speechSynthesis.speak(u);
+  }else setTimeout(done,1800+text.length*110);
+}
+function stopA(){playing=false;token++;if('speechSynthesis'in window)speechSynthesis.cancel();$('#aPlay').textContent='▶ 再生'}
+$('#aPlay').onclick=()=>{if(playing){stopA();return}playing=true;$('#aPlay').textContent='⏸ 一時停止';if(aIdx>=PAGES.length-1)aIdx=0;aShow(aIdx)};
+$('#aPrev').onclick=()=>{token++;if('speechSynthesis'in window)speechSynthesis.cancel();aShow(aIdx-1)};
+$('#aNext').onclick=()=>{token++;if('speechSynthesis'in window)speechSynthesis.cancel();aShow(aIdx+1)};
+
+/* タブ */
+$$('.tabs button[data-v]').forEach(b=>b.onclick=()=>{
+  $$('.tabs button[data-v]').forEach(x=>x.classList.toggle('on',x===b));
+  $$('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+b.dataset.v));
+  if(b.dataset.v==='anime'){aIdx=cur;aShow(aIdx,false)}else stopA();
+});
+
+/* 印刷 */
+$('#print').onclick=()=>{
+  $('#print').innerHTML=PAGES.map((p,i)=>`<div class="pp">${sceneSVG(p,D,i)}<div class="txt">${esc(p.text)}</div></div>`).join('');
+  window.print();
+};
+
+/* 音声入力 */
+$$('.mic').forEach(b=>{
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){b.style.display='none';return}
+  b.onclick=e=>{e.preventDefault();
+    if(b._r){b._r.stop();return}
+    const r=new SR();r.lang='ja-JP';r.interimResults=false;b._r=r;b.classList.add('rec');b.textContent='⏺ 聞いています…';
+    r.onresult=ev=>{const ta=$('#'+b.dataset.for);const t=[...ev.results].map(x=>x[0].transcript).join('');ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+t;schedule()};
+    r.onend=()=>{b._r=null;b.classList.remove('rec');b.textContent='🎤 話して入力'};r.start();
+  };
+});
+
+/* 保存・サンプル */
+const FIELDS=['gender','realName','nick','birth','place','job','episodes','sayings','gc','gcYear'];
+function formState(){const o={};FIELDS.forEach(f=>o[f]=$('#'+f).value);o.traits=$$('input[name=trait]:checked').map(x=>x.value);['kind','meta','style','tone'].forEach(n=>o[n]=$(`input[name=${n}]:checked`).value);return o}
+function setForm(o){FIELDS.forEach(f=>{if(o[f]!=null)$('#'+f).value=o[f]});$$('input[name=trait]').forEach(x=>x.checked=(o.traits||[]).includes(x.value));['kind','meta','style','tone'].forEach(n=>{const el=$(`input[name=${n}][value="${o[n]}"]`);if(el)el.checked=true})}
+const SAMPLE={gender:'m',realName:'鈴木 正一',nick:'しょうちゃんじいじ',birth:'1938',place:'新潟の小さな村',job:'大工',
+ episodes:'1945 戦争が終わった日の夜、空襲の音がしない静かな空で、お母さんといっしょに星を見た\n1958 東京に出て大工の見習いになった。東京タワーが少しずつ伸びていくのを、毎日見上げていた\n1964 ばあちゃんと結婚。ふたりで白黒テレビの東京オリンピックを見て、手をたたいた\n1970 家族で大阪万博へ。月の石を見るために3時間ならんだ\n1995 自分で建てた家を地震に強くしようと、近所の家までなおして回った',
+ sayings:'まっすぐな柱は、まっすぐな心から\nごはんは、みんなで食べるとうまい\n失敗したら、またけずればいい',
+ gc:'ゆいちゃん',gcYear:'2018',traits:['やさしい','がんこな','はたらきものの','手先がきような'],kind:'bear',meta:'1',style:'water',tone:'ehon'};
+$('#sample').onclick=()=>{setForm(SAMPLE);edits={};cur=0;render()};
+$('#clear').onclick=()=>{setForm({gender:'m',realName:'',nick:'',birth:'',place:'',job:'',episodes:'',sayings:'',gc:'',gcYear:'',traits:[],kind:'human',meta:'1',style:'water',tone:'ehon'});edits={};cur=0;render()};
+$('#make').onclick=()=>{edits={};cur=0;render();$('.tabs button[data-v=book]').click();if(innerWidth<980)$('#v-book').scrollIntoView({behavior:'smooth'})};
+let st=null;const schedule=()=>{clearTimeout(st);st=setTimeout(render,400)};
+$('.form').addEventListener('input',schedule);
+$('.form').addEventListener('change',e=>{if(e.target.type==='radio'||e.target.type==='checkbox'||e.target.tagName==='SELECT')render()});
+
+try{const s=JSON.parse(localStorage.getItem('omoide-ehon'));setForm(s&&s.birth?s:SAMPLE)}catch(e){setForm(SAMPLE)}
+render();
+if('speechSynthesis'in window)speechSynthesis.getVoices();
+</script>
+</body>
+</html>
